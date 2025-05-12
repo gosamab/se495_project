@@ -1,2 +1,6 @@
 .venv
 .DS_Store
+publicDatasets/
+CTU-13-Dataset/
+data/
+binetflow_files/
