@@ -106,36 +106,36 @@ def clean_combined_dataset():
     label_counts = df_selected.groupby(["label_binary"]).size().reset_index(name='count')
     print(label_counts)
 
-    # print(f"[INFO] Saving cleaned data to {OUTPUT_FILE}")
-    # df_selected.to_csv(OUTPUT_FILE, index=False)
+    print(f"[INFO] Saving cleaned data to {OUTPUT_FILE}")
+    df_selected.to_csv(OUTPUT_FILE, index=False)
 
-    # # === Split Dataset ===
-    # print("[INFO] Splitting into train/val/test sets (80/10/10)")
-    # train_df, temp_df = train_test_split(df_selected, test_size=0.2, random_state=42)
-    # val_df, test_df = train_test_split(temp_df, test_size=0.5, random_state=42)
+    # === Split Dataset ===
+    print("[INFO] Splitting into train/val/test sets (80/10/10)")
+    train_df, temp_df = train_test_split(df_selected, test_size=0.2, random_state=42)
+    val_df, test_df = train_test_split(temp_df, test_size=0.5, random_state=42)
 
-    # print(f"Train: {train_df.shape}, Val: {val_df.shape}, Test: {test_df.shape}")
+    print(f"Train: {train_df.shape}, Val: {val_df.shape}, Test: {test_df.shape}")
 
-    # train_df.to_csv("data/train.csv", index=False)
-    # val_df.to_csv("data/val.csv", index=False)
-    # test_df.to_csv("data/test.csv", index=False)
+    train_df.to_csv("data/train.csv", index=False)
+    val_df.to_csv("data/val.csv", index=False)
+    test_df.to_csv("data/test.csv", index=False)
 
-    # print("[DONE] Preprocessing complete.")
+    print("[DONE] Preprocessing complete.")
     
-    # from datasets import Dataset, DatasetDict
+    from datasets import Dataset, DatasetDict
 
-    # train_ds = Dataset.from_pandas(train_df)
-    # val_ds = Dataset.from_pandas(val_df)
-    # test_ds = Dataset.from_pandas(test_df)
+    train_ds = Dataset.from_pandas(train_df)
+    val_ds = Dataset.from_pandas(val_df)
+    test_ds = Dataset.from_pandas(test_df)
 
-    # dataset_dict = DatasetDict({
-    #     "train": train_ds,
-    #     "validation": val_ds,
-    #     "test": test_ds
-    # })
+    dataset_dict = DatasetDict({
+        "train": train_ds,
+        "validation": val_ds,
+        "test": test_ds
+    })
 
-    # repo_name = "gosamab/binetflow-dataset"
-    # dataset_dict.push_to_hub(repo_name)
+    repo_name = "gosamab/binetflow-dataset"
+    dataset_dict.push_to_hub(repo_name)
 
 if __name__ == "__main__":
     clean_combined_dataset()
